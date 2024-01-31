@@ -1,6 +1,8 @@
 #include "bump.h"
 
-static BumpAllocator BumpAllocator::CreateWithSize(std::size_t size) {
+#include <stdlib.h>
+
+BumpAllocator BumpAllocator::CreateWithSize(size_t size) {
     void* start_ptr = malloc(size);
     return BumpAllocator {
         size,
@@ -9,8 +11,8 @@ static BumpAllocator BumpAllocator::CreateWithSize(std::size_t size) {
     };
 }
 
-void* BumpAllocator::Allocate(std::size_t size) {
-    void* ptr_to_curr_head = start_ptr + offset;
+void* BumpAllocator::Allocate(size_t size) {
+    void* ptr_to_curr_head = (void*)(static_cast<char*>(start_ptr) + offset);
     offset += size;
     return ptr_to_curr_head;
 }
