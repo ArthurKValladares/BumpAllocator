@@ -17,8 +17,8 @@ struct BumpAllocator {
 
     template<class T>
     BumpArray<T> AllocateArray(size_t count) {
-        void* arr_start_ptr = Allocate(count * sizeof(T));
-        return BumpArray {
+        T* arr_start_ptr = (T*) Allocate(count * sizeof(T));
+        return BumpArray<T> {
             arr_start_ptr,
             count
         };
