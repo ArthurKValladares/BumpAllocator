@@ -20,3 +20,11 @@ void* BumpAllocator::Allocate(size_t size) {
 void BumpAllocator::Reset() {
     offset = 0;
 }
+
+BumpArray BumpAllocator::AllocateArray(size_t capacity) {
+    void* arr_start_ptr = Allocate(capacity);
+    return BumpArray {
+        arr_start_ptr,
+        capacity
+    };
+}
