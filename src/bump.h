@@ -1,5 +1,11 @@
 #pragma once
 
+template<class T>
+struct BumpArray {
+    T* start_ptr;
+    size_t capacity;
+};
+
 struct BumpAllocator {
     static BumpAllocator CreateWithSize(size_t size);
     void* Allocate(size_t size);
@@ -17,10 +23,4 @@ struct BumpAllocator {
     size_t size;
     size_t offset;
     void* start_ptr;
-};
-
-template<class T>
-struct BumpArray {
-    T* start_ptr;
-    size_t capacity;
 };
