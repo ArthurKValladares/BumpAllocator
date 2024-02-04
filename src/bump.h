@@ -4,6 +4,10 @@ template<class T>
 struct BumpArray {
     T* start_ptr;
     size_t capacity;
+
+    T& operator[](size_t n) { 
+        return start_ptr[n]; 
+    }
 };
 
 struct BumpAllocator {
