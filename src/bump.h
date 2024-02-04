@@ -5,14 +5,22 @@ struct BumpAllocator {
     void* Allocate(size_t size);
     void Reset();
 
-    BumpArray AllocateArray(size_t capacity);
+    template<class T>
+    BumpArray<T> AllocateArray(size_t count) {
+        void* arr_start_ptr = Allocate(count * sizeof(T));
+        return BumpArray {
+            arr_start_ptr,
+            count
+        };
+    }
 
     size_t size;
     size_t offset;
     void* start_ptr;
 };
 
+template<class T>
 struct BumpArray {
-    void* start_ptr;
+    T* start_ptr;
     size_t capacity;
 };
