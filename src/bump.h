@@ -11,20 +11,21 @@ struct BumpArray {
 };
 
 struct BumpAllocator {
-    static BumpAllocator CreateWithSize(size_t size);
-    void* Allocate(size_t size);
+    static BumpAllocator CreateWithCapacity(size_t capacity);
+    void* Allocate(size_t capacity);
     void Reset();
 
     template<class T>
     BumpArray<T> AllocateArray(size_t count) {
-        T* arr_start_ptr = (T*) Allocate(count * sizeof(T));
+        const size_t size = count * sizeof(T);
+        T* arr_start_ptr = (T*) Allocate(size);
         return BumpArray<T> {
             arr_start_ptr,
             count
         };
     }
 
-    size_t size;
+    size_t capacity;
     size_t offset;
     void* start_ptr;
 };
