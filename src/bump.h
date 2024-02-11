@@ -37,7 +37,8 @@ struct BumpAllocator {
     static BumpAllocator CreateWithCapacity(size_t capacity);
     void* Allocate(size_t capacity);
     void Reset();
-
+    void Free();
+    
     template<class T>
     BumpArray<T> AllocateArray(size_t count) {
         const size_t size = count * sizeof(T);

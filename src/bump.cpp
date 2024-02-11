@@ -22,3 +22,7 @@ void* BumpAllocator::Allocate(size_t size) {
 void BumpAllocator::Reset() {
     offset = 0;
 }
+
+void BumpAllocator::Free() {
+    free(start_ptr);
+}
